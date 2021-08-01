@@ -47,6 +47,12 @@ app.get('*', (req, res) => {
   res.status(404).send('Sorry that route does NOT exist');
 });
 
+// function errorHandler(res, error){
+//   if (error) {
+//     res.status(400);
+//   }
+// }
+
 app.listen(PORT, () =>
   console.log(`Up and running on http://localhost:${PORT}`)
 );
