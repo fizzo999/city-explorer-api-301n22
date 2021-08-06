@@ -51,4 +51,11 @@ dotenv and cors
 
 big shoutout to Ryan Gallaway - Code Fellows teacher for 301n22 class for a great lecture for lab07 to walk students through creating a server.
 
-<!-- Give credit (and a link) to other people or resources that helped you build this application. -->
+<!-- Give credit (and a link) to other people or resources that helped you build this application.
+
+https://api.weatherbit.io/v2.0/forecast/daily?lat=${latitude}&lon=${longitude}&key=${process.env.WEATHER_API_KEY}
+
+https://api.themoviedb.org/3/search/movie?query=${}&api_key=${process.env.MOVIE_DB_API_KEY}&language=en-US&page=1&include_adult=false
+
+
+-->
