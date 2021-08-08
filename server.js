@@ -6,6 +6,7 @@ const cors = require('cors');
 
 require('dotenv').config();
 
+const getLocation = require('./modules/location.js');
 const getMovies = require('./modules/movies.js');
 const getWeather = require('./modules/weather.js');
 
@@ -16,6 +17,7 @@ app.get('/', (req, res) => {
   res.send('Proof of Life - hello from the server we are up and running');
 });
 
+app.get('/location', getLocation);
 app.get('/weather', getWeather);
 app.get('/movies', getMovies);
 
