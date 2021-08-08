@@ -25,7 +25,9 @@ async function getWeather(req, res) {
 class Forecast {
   constructor(weatherObject) {
     this.date = weatherObject.datetime;
-    this.description = `Low of ${weatherObject.low_temp}, high of ${weatherObject.high_temp} with ${weatherObject.weather.description}`;
+    this.description = weatherObject.weather.description;
+    this.low = weatherObject.low_temp;
+    this.high = weatherObject.high_temp;
     this.icon = weatherObject.weather.icon;
     this.moonphase = weatherObject.moon_phase;
     this.sunrise = weatherObject.sunrise_ts;
