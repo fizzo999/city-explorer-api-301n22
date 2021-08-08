@@ -28,6 +28,7 @@ This is a Code Fellows 301 project to train students to make a server app. This 
 
 git clone this repo to your local machine.
 npm i - to install the npm packages for express, dotenv, cors.
+
 Create a .env file with the following tokens:
 
 PORT=3001
@@ -47,6 +48,16 @@ https://www.themoviedb.org/login
 built in JavaScript using nodeJS and express.js to create a backend server.
 using dotenv and cors.
 
+current routes are:
+
+- / home rout to test server
+- /weather?lat=&lon=
+- /movies?city=
+
+future plans for yelp route:
+
+- /yelp?city=
+
 <!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
 
 ## Change Log
@@ -55,19 +66,12 @@ using dotenv and cors.
 
 07-31-2021 8:59pm - Application now has a fully-functional express server, with a GET route for the weather endpoint.
 
+08-07-2021 7:15pm - Application now has movieDatabase results and weatherbit.io results implemented, also passing better structured data to the frontend
+
 ## Credit and Collaborations
 
 big shoutout to Ryan Gallaway - Code Fellows teacher for 301n22 class for a great lecture for lab07 to walk students through creating a server.
 
-<!-- Give credit (and a link) to other people or resources that helped you build this application.
+big shoutout to Willem Jacobs - got the idea of icons for weather from weatherbit.io from him. Also the use of react-bootstrap icons - and the idea of having a button to show or hide results (I had done that in the 201 project of busmall to display the results of the visual product survey and I like it);
 
-https://api.weatherbit.io/v2.0/forecast/daily?lat=${latitude}&lon=${longitude}&key=${process.env.WEATHER_API_KEY}
-
-https://api.themoviedb.org/3/search/movie?query=${}&api_key=${process.env.MOVIE_DB_API_KEY}&language=en-US&page=1&include_adult=false
-
-https://www.themoviedb.org/t/p/w600_and_h900_bestv2/
-
-has to be added infront of the movieDB poster link as a src tag
-
-
--->
+<!-- Give credit (and a link) to other people or resources that helped you build this application -->
