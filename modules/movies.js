@@ -1,34 +1,50 @@
 'use strict';
-
 const axios = require('axios');
+let cache = require('./cache.js');
 
-async function getMovies(req, res) {
-  let searchCity = req.query.city;
-  let moviesResultsArray = [];
-  if (searchCity) {
-    try {
-      let moviesAPIResult = await axios.get(
-        `https://api.themoviedb.org/3/search/movie?query=${searchCity}&api_key=${process.env.MOVIE_DB_API_KEY}&language=en-US&page=1&include_adult=false`
-      );
-      let moviesAPIResultsrefined = moviesAPIResult.data.results;
-      if (moviesAPIResultsrefined) {
-        moviesResultsArray = moviesAPIResultsrefined.map(
-          eachMovieObj => new Movie(eachMovieObj)
-        );
-        res.status(200).send(moviesResultsArray);
-      } else {
-        res.status(500).send(`There was an error trying to get movies !!!`);
-      }
-    } catch (error) {
-      res
+function getMovies(request, response) {
+  const { city } = request.query;
+  moviesCache(city)
+    .then(summaries => {
+      response.status(200).send(summaries);
+    })
+    .catch(error => {
+      console.error(error);
+      response
         .status(500)
-        .send(`There was an error trying to get movies: ${error.message}`);
-    }
-  } else {
-    res
-      .status(500)
-      .send(`There was an error with the city you searched for movies`);
+        .send('Sorry. Something went wrong with getting the weather!');
+    });
+}
+
+function parseMovies(moviesData) {
+  try {
+    const moviesSummaries = moviesData.results.map(film => {
+      return new Movie(film);
+    });
+    return Promise.resolve(moviesSummaries);
+  } catch (e) {
+    return Promise.reject(e);
   }
+}
+
+function moviesCache(city) {
+  let key = 'movies-' + city;
+  let movieURI = `https://api.themoviedb.org/3/search/movie?query=${city}&api_key=${process.env.MOVIE_DB_API_KEY}&language=en-US&page=1&include_adult=false`;
+
+  if (
+    cache[key] &&
+    Date.now() - cache[key].timestamp < 1000 * 60 * 60 * 24 * 7
+  ) {
+    console.log('Cache hit movies');
+  } else {
+    console.log('Cache miss movies');
+    cache[key] = {};
+    cache[key].timestamp = Date.now();
+    cache[key].data = axios.get(movieURI).then(response => {
+      return parseMovies(response.data);
+    });
+  }
+  return cache[key].data;
 }
 
 class Movie {
