@@ -7,8 +7,9 @@ const cors = require('cors');
 require('dotenv').config();
 
 const getLocation = require('./modules/location.js');
-const getMovies = require('./modules/movies.js');
 const getWeather = require('./modules/weather.js');
+const getMovies = require('./modules/movies.js');
+const getRestaurants = require('./modules/restaurants.js');
 
 const PORT = process.env.PORT || 3001;
 app.use(cors());
@@ -20,6 +21,7 @@ app.get('/', (req, res) => {
 app.get('/location', getLocation);
 app.get('/weather', getWeather);
 app.get('/movies', getMovies);
+app.get('/restaurants', getRestaurants);
 
 app.get('*', (req, res) => {
   res.status(404).send('Sorry that route does NOT exist');
